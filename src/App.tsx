@@ -1,26 +1,47 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+
+// Importing pages
+import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
+
+// Admin pages
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
+// Worker pages
+import WorkerDashboard from "./pages/worker/WorkerDashboard";
+
+// Delivery person pages
+import DeliveryDashboard from "./pages/delivery/DeliveryDashboard";
+
+// Client pages
+import ClientDashboard from "./pages/client/ClientDashboard";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        
+        {/* Admin routes */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        
+        {/* Worker routes */}
+        <Route path="/worker/dashboard" element={<WorkerDashboard />} />
+        
+        {/* Delivery person routes */}
+        <Route path="/delivery/dashboard" element={<DeliveryDashboard />} />
+        
+        {/* Client routes */}
+        <Route path="/client/dashboard" element={<ClientDashboard />} />
+        
+        {/* Catch all route - 404 page */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 
