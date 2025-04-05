@@ -21,8 +21,8 @@ const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
 
   // Define handlers for the quick action buttons
-  const handleAddClient = () => {
-    navigate('/admin/clients');
+  const handleAddUser = () => {
+    navigate('/admin/users');
   };
 
   const handleRecordPayment = () => {
@@ -75,7 +75,7 @@ const AdminDashboard: React.FC = () => {
       <div style={{ marginTop: '2rem' }}>
         <h3>Quick Actions</h3>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '1rem' }}>
-          <Button onClick={handleAddClient}>Add New Client</Button>
+          <Button onClick={handleAddUser}>Add New User</Button>
           <Button onClick={handleRecordPayment}>Record Payment</Button>
           <Button onClick={handleAddMaterials}>Add Materials</Button>
           <Button onClick={handleCreateWorkOrder}>Create Work Order</Button>

@@ -21,7 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userRole }) => {
       case 'admin':
         return [
           { title: 'Dashboard', path: '/admin/dashboard', icon: '📊' },
-          { title: 'Clients', path: '/admin/clients', icon: '👥' },
+          { title: 'Users', path: '/admin/users', icon: '👥' },
           { title: 'Workers', path: '/admin/workers', icon: '👷' },
           { title: 'Materials', path: '/admin/materials', icon: '📦' },
           { title: 'Payments', path: '/admin/payments', icon: '💰' },
