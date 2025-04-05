@@ -8,6 +8,13 @@ import NotFound from "./pages/NotFound";
 
 // Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminClients from "./pages/admin/AdminClients";
+import AdminWorkers from "./pages/admin/AdminWorkers";
+import AdminMaterials from "./pages/admin/AdminMaterials";
+import AdminPayments from "./pages/admin/AdminPayments";
+import AdminExpenses from "./pages/admin/AdminExpenses";
+import AdminComplaints from "./pages/admin/AdminComplaints";
+import AdminReports from "./pages/admin/AdminReports";
 
 // Worker pages
 import WorkerDashboard from "./pages/worker/WorkerDashboard";
@@ -28,6 +35,13 @@ const App = () => (
         
         {/* Admin routes */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/clients" element={<AdminClients />} />
+        <Route path="/admin/workers" element={<AdminWorkers />} />
+        <Route path="/admin/materials" element={<AdminMaterials />} />
+        <Route path="/admin/payments" element={<AdminPayments />} />
+        <Route path="/admin/expenses" element={<AdminExpenses />} />
+        <Route path="/admin/complaints" element={<AdminComplaints />} />
+        <Route path="/admin/reports" element={<AdminReports />} />
         
         {/* Worker routes */}
         <Route path="/worker/dashboard" element={<WorkerDashboard />} />
