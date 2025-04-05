@@ -1,10 +1,11 @@
 
+import React from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import StatCard from '../../components/dashboard/StatCard';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
-const AdminDashboard = () => {
+const AdminDashboard: React.FC = () => {
   // In a real app, this data would come from API calls
   const dashboardData = {
     activeClients: 42,
