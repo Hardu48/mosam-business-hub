@@ -1,6 +1,8 @@
 
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import StatCard from '../../components/dashboard/StatCard';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const AdminDashboard = () => {
   // In a real app, this data would come from API calls
@@ -13,6 +15,26 @@ const AdminDashboard = () => {
     openComplaints: 3,
     materialsLow: 5,
     deliveriesInProgress: 7
+  };
+
+  const navigate = useNavigate();
+
+  // Define handlers for the quick action buttons
+  const handleAddClient = () => {
+    navigate('/admin/clients');
+  };
+
+  const handleRecordPayment = () => {
+    navigate('/admin/payments');
+  };
+
+  const handleAddMaterials = () => {
+    navigate('/admin/materials');
+  };
+
+  const handleCreateWorkOrder = () => {
+    // For now just navigate to workers page
+    navigate('/admin/workers');
   };
 
   return (
@@ -52,10 +74,10 @@ const AdminDashboard = () => {
       <div style={{ marginTop: '2rem' }}>
         <h3>Quick Actions</h3>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '1rem' }}>
-          <button className="btn">Add New Client</button>
-          <button className="btn">Record Payment</button>
-          <button className="btn">Add Materials</button>
-          <button className="btn">Create Work Order</button>
+          <Button onClick={handleAddClient}>Add New Client</Button>
+          <Button onClick={handleRecordPayment}>Record Payment</Button>
+          <Button onClick={handleAddMaterials}>Add Materials</Button>
+          <Button onClick={handleCreateWorkOrder}>Create Work Order</Button>
         </div>
       </div>
 

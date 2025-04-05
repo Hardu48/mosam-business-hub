@@ -3,6 +3,11 @@ import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import DashboardLayout from '../../components/layout/DashboardLayout';
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
 
 const AdminMaterials = () => {
   const [materials, setMaterials] = useState([
@@ -11,14 +16,47 @@ const AdminMaterials = () => {
     { id: 3, name: 'Paint - White', category: 'Finishing', quantity: 50, unit: 'liters', price: 8.25, supplier: 'Color World', status: 'In Stock' },
   ]);
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const form = useForm({
+    defaultValues: {
+      name: '',
+      category: '',
+      quantity: 0,
+      unit: '',
+      price: 0,
+      supplier: '',
+    }
+  });
+
+  const handleAddMaterial = () => {
+    setIsDialogOpen(true);
+  };
+
+  const onSubmit = (data) => {
+    // Create a new material with the form data
+    const newMaterial = {
+      id: materials.length + 1,
+      ...data,
+      price: parseFloat(data.price),
+      quantity: parseInt(data.quantity),
+      status: 'In Stock'
+    };
+
+    // Add the new material to the materials array
+    setMaterials([...materials, newMaterial]);
+    
+    // Reset the form and close the dialog
+    form.reset();
+    setIsDialogOpen(false);
+  };
+
   return (
     <DashboardLayout allowedRoles={['admin']} pageTitle="Material Management">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Material Management</h1>
           <div className="space-x-2">
-            <button className="btn">Add Material</button>
-            <button className="btn">Order Supplies</button>
+            <Button onClick={handleAddMaterial}>Add Material</Button>
           </div>
         </div>
 
@@ -85,8 +123,8 @@ const AdminMaterials = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex space-x-2">
-                        <button className="btn-sm">Update</button>
-                        <button className="btn-sm">History</button>
+                        <Button size="sm" variant="outline">Update</Button>
+                        <Button size="sm" variant="outline">History</Button>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -96,6 +134,97 @@ const AdminMaterials = () => {
           </CardContent>
         </Card>
       </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Add New Material</DialogTitle>
+            <DialogDescription>
+              Enter the material details below. Click save when you're done.
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Material Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="quantity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Quantity</FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="unit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Unit</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Price (₹)</FormLabel>
+                    <FormControl>
+                      <Input type="number" step="0.01" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="supplier"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Supplier</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <DialogFooter>
+                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+                <Button type="submit">Save Material</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </DashboardLayout>
   );
 };
